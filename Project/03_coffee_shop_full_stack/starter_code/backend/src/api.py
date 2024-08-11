@@ -119,10 +119,10 @@ def update_drink(drink_id):
         abort(status=404)
 
     request_body = request.get_json()
-    recipe = request_body.get('recipe', None)
+    recipes = request_body.get('recipe', None)
     title = request_body.get('title', None)
-    if recipe is not None:
-        drink.recipe = recipe
+    if recipes is not None:
+        drink.recipe = json.dumps(recipes)
     if title is not None:
         drink.title = title
     try:
