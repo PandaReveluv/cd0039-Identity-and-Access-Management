@@ -84,6 +84,17 @@ class Drink(db.Model):
             'recipe': json.loads(self.recipe)
         }
 
+    def is_long_recipe(self):
+        result = True
+        recipes = json.loads(self.recipe)
+        for recipe in recipes:
+            if not ('name' in recipe
+                    and 'color' in recipe
+                    and 'parts' in recipe):
+                result = False
+        return result
+
+
     '''
     insert()
         inserts a new model into a database
@@ -123,6 +134,9 @@ class Drink(db.Model):
 
     def update(self):
         db.session.commit()
+
+    def rollback(self):
+        db.session.rollback()
 
     def __repr__(self):
         return json.dumps(self.short())
